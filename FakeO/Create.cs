@@ -148,8 +148,11 @@ namespace FakeO
           var strLenAttrib = pi.GetCustomAttributes(typeof(StringLengthAttribute), true).Cast<StringLengthAttribute>().FirstOrDefault();
           if(strLenAttrib != null)
           {
-              min = strLenAttrib.MinimumLength;
-              max = strLenAttrib.MaximumLength;
+              var oMaximumLengthProperty = strLenAttrib.GetType().GetProperty("MaximumLength");
+              var oMinimumLengthProperty = strLenAttrib.GetType().GetProperty("MinimumLength");
+
+              if (null != oMaximumLengthProperty) max = Convert.ToDouble(oMaximumLengthProperty.GetValue(strLenAttrib, null));
+              if (null!= oMinimumLengthProperty) min = Convert.ToDouble(oMinimumLengthProperty.GetValue(strLenAttrib, null));
           }
 
           var rangeAttrib = pi.GetCustomAttributes(typeof(RangeAttribute), true).Cast<RangeAttribute>().FirstOrDefault();

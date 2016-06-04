@@ -41,3 +41,4 @@ TestResults/
  
 # NuGet packages
 *.nupkg
+/.localhistory/FakeO
